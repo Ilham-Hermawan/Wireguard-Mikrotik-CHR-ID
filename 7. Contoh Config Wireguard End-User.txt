@@ -1,0 +1,23 @@
+#Contoh Config Wireguard Routing
+[Interface]
+PrivateKey = IDndOAz6ukeCwN5rAzyOrgc/tpI60wubjVs4tNiF73I=
+Address = 10.0.11.205/32
+DNS = 10.0.10.1
+
+[Peer]
+PublicKey = qIH59NWY6rasvQn2r2yLGoPxN1SROYU6l0dWbfnwYVw=
+AllowedIPs = 10.61.5.0/24, 10.26.1.0/24, 10.27.1.0/24, 10.0.10.0/23
+Endpoint = 34.87.65.230:11205
+
+
+
+#Contoh Config Wireguard Forward Trafik ke VPS CHR
+[Interface]
+PrivateKey = IDndOAz6ukeCwN5rAzyOrgc/tpI60wubjVs4tNiF73I=
+Address = 10.0.11.205/32
+DNS = 10.0.10.1
+
+[Peer]
+PublicKey = qIH59NWY6rasvQn2r2yLGoPxN1SROYU6l0dWbfnwYVw=
+AllowedIPs = 0.0.0.0/0
+Endpoint = 34.87.65.230:11205
