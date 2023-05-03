@@ -1,0 +1,39 @@
+/system identity set name="RB-Kantor"
+/system clock set time-zone-name=Asia/Jakarta
+/system ntp client set enabled=yes
+/system ntp client servers
+/system ntp client servers add address=0.asia.pool.ntp.org
+/system ntp client servers add address=1.asia.pool.ntp.org
+/system ntp client servers add address=2.asia.pool.ntp.org
+/ip service disable api,api-ssl,ftp,ssh,telnet,www,www-ssl
+/tool mac-server set allowed-interface-list=none
+/tool mac-server mac-winbox set allowed-interface-list=none
+/tool mac-server ping set enabled=no
+/ip neighbor discovery-settings set discover-interface-list=none 
+/tool bandwidth-server set enabled=no 
+/ip dns set allow-remote-requests=no
+/ip proxy set enabled=no
+/ip socks set enabled=no
+/ip upnp set enabled=no
+/ip cloud set ddns-enabled=no update-time=no
+/ip service set winbox port=6100
+/ip firewall filter add action=accept chain=input protocol=tcp dst-port=6100 comment="defconf: Allow Winbox."
+
+/ip/firewall/filter add action=accept chain=input connection-state=established,related,untracked comment="defconf: Accept established, related, and untracked traffic."
+/ip/firewall/filter add action=drop chain=input connection-state=invalid comment="defconf: Drop invalid traffic."
+/ip/firewall/filter add action=accept chain=input protocol=icmp comment="defconf: Accept ICMP traffic."
+/ip/firewall/filter add action=accept chain=forward connection-state=established,related,untracked comment="defconf: Accept established, related, and untracked traffic."
+/ip/firewall/filter add action=drop chain=forward connection-state=invalid comment="defconf: Drop invalid traffic End."
+
+
+/interface/wireguard add listen-port=10002 name=WireServer
+/ip/address add address=10.0.10.2 network=10.0.10.1 interface=WireServer
+/interface/wireguard/peers add allowed-address=0.0.0.0/0 interface=WireServer public-key="" endpoint-address=34.87.65.230
+endpoint-port=10002
+tool/netwatch/add host=10.0.10.1
+ping 10.0.10.1
+
+#TAMBAHAN ROUTING
+ip/route/add dst-address=10.61.0.0/24 gateway=10.0.10.1 comment="IP KANTOR"
+ip/route/add dst-address=10.26.1.0/24 gateway=10.0.10.1 comment="IP KEL-A"
+ip/route/add dst-address=10.27.1.0/24 gateway=10.0.10.1 comment="IP KEL-B"

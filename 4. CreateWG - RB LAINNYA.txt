@@ -1,0 +1,4 @@
+/interface/wireguard add listen-port=10026 name=RB-KEL-A
+/ip/address add address=10.0.10.1 network=10.0.10.26 interface=RB-KEL-A
+/interface/wireguard/peers add allowed-address=0.0.0.0/0 interface=RB-KEL-A public-key=""
+/tool/netwatch/add host=10.0.10.26 comment="RB-KEL-A"

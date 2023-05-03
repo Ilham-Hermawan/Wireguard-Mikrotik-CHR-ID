@@ -1,0 +1,4 @@
+/interface/wireguard add listen-port=10002 name=RB-KANTOR
+/ip/address add address=10.0.10.1 network=10.0.10.2 interface=RB-KANTOR
+/interface/wireguard/peers add allowed-address=0.0.0.0/0 interface=RB-KANTOR public-key=""
+/tool/netwatch/add host=10.0.10.2 comment="RB-KANTOR"
